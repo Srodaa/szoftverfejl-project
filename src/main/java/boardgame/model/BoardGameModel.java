@@ -1,6 +1,7 @@
 package boardgame.model;
 
-import javafx.beans.property.ReadOnlyBooleanWrapper;
+import javafx.beans.property.ReadOnlyIntegerWrapper;
+import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import puzzle.TwoPhaseMoveState;
@@ -13,6 +14,8 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
     public static final int BOARD_SIZE_X = 2;
     public static final int BOARD_SIZE_Y = 3;
     private ReadOnlyObjectWrapper<Square>[][] board = new ReadOnlyObjectWrapper[BOARD_SIZE_X][BOARD_SIZE_Y];
+    private ReadOnlyIntegerWrapper numberOfMoves = new ReadOnlyIntegerWrapper();
+
     public BoardGameModel() {
         for (var i = 0; i < BOARD_SIZE_X; i++) {
             board[i][0] = new ReadOnlyObjectWrapper<Square>(
@@ -34,12 +37,20 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
                         default -> Square.NONE;
                     });
         }
+        numberOfMoves.set(0);
 
     }
     public ReadOnlyObjectProperty<Square> squareProperty(int i, int j) {
         return board[i][j].getReadOnlyProperty();
     }
 
+    public int getNumberOfMoves() {
+        return numberOfMoves.get();
+    }
+
+    public ReadOnlyIntegerProperty numberOfMovesProperty() {
+        return numberOfMoves.getReadOnlyProperty();
+    }
 
     public Square getSquare(Position position) {
         return board[position.row()][position.col()].get();
@@ -85,6 +96,7 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
     public void makeMove(TwoPhaseMove<Position> positionTwoPhaseMove) {
         setSquare(positionTwoPhaseMove.to(), getSquare(positionTwoPhaseMove.from()));
         setSquare(positionTwoPhaseMove.from(), Square.NONE);
+        numberOfMoves.set(numberOfMoves.get() + 1);
     }
 
     public static boolean isKingMove(Position from, Position to) {

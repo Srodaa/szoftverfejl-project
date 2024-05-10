@@ -8,6 +8,7 @@ import boardgame.util.EnumImageStorage;
 import boardgame.util.ImageStorage;
 import javafx.beans.binding.ObjectBinding;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -20,6 +21,9 @@ import org.apache.logging.log4j.Logger;
 public class BoardGameController {
     @FXML
     public GridPane board;
+
+    @FXML
+    public TextField numberOfMoves;
 
     private static final Logger logger = LogManager.getLogger(BoardGameController.class);
 
@@ -38,7 +42,7 @@ public class BoardGameController {
                 board.add(square, j, i);
             }
         }
-
+        numberOfMoves.textProperty().bind(model.numberOfMovesProperty().asString());
     }
 
     private StackPane createSquare(int i, int j) {
