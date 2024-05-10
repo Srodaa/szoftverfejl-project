@@ -1,24 +1,34 @@
 package boardgame;
 
 import boardgame.model.BoardGameModel;
+import boardgame.model.Position;
 import boardgame.model.Square;
+import boardgame.util.BoardGameMoveSelector;
 import boardgame.util.EnumImageStorage;
 import boardgame.util.ImageStorage;
 import javafx.beans.binding.ObjectBinding;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class BoardGameController {
     @FXML
     public GridPane board;
 
+    private static final Logger logger = LogManager.getLogger(BoardGameController.class);
+
     private BoardGameModel model = new BoardGameModel();
 
     private ImageStorage<Square> imageStorage = new EnumImageStorage<>(Square.class);
+
+    private BoardGameMoveSelector selector = new BoardGameMoveSelector(model);
+
 
     @FXML
     private void initialize() {
@@ -49,8 +59,20 @@ public class BoardGameController {
                 }
         );
         square.getChildren().add(imageView);
-
+        square.setOnMouseClicked(this::handleMouseClick);
         return square;
+    }
+
+    @FXML
+    private void handleMouseClick(MouseEvent event) {
+        var square = (StackPane) event.getSource();
+        var row = GridPane.getRowIndex(square);
+        var col = GridPane.getColumnIndex(square);
+        logger.info("Click on row: " + row + ", col: " + col);
+        selector.select(new Position(row, col));
+        if (selector.isReadyToMove()){
+            selector.makeMove();
+        }
     }
 
 }

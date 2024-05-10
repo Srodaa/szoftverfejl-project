@@ -24,7 +24,7 @@
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
             <Label prefHeight="17.0" prefWidth="97.0" text="Lépések száma:" />
-            <TextField fx:id="numberOfMoves" />
+            <TextField fx:id="numberOfMoves" prefHeight="25.0" prefWidth="69.0" />
          </children>
       </HBox>
    </children>
