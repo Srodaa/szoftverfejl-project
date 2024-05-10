@@ -88,6 +88,7 @@ public class BoardGameMoveSelector  {
         } else {
             model.makeMove(move);
             reset();
+            model.isSolved();
         }
     }
 

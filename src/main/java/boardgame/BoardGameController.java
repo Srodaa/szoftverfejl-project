@@ -6,8 +6,10 @@ import boardgame.model.Square;
 import boardgame.util.BoardGameMoveSelector;
 import boardgame.util.EnumImageStorage;
 import boardgame.util.ImageStorage;
+import javafx.application.Platform;
 import javafx.beans.binding.ObjectBinding;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -76,7 +78,18 @@ public class BoardGameController {
         selector.select(new Position(row, col));
         if (selector.isReadyToMove()){
             selector.makeMove();
+            if (model.isSolved()){
+                gameSolvedAlert();
+            }
         }
+    }
+
+    private void gameSolvedAlert(){
+        var alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Congratulations!");
+        alert.setContentText("The game is solved!");
+        alert.showAndWait();
+        Platform.exit();
     }
 
 }
