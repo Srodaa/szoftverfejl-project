@@ -65,7 +65,20 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
 
     @Override
     public boolean isLegalMove(TwoPhaseMove<Position> positionTwoPhaseMove) {
-        return true;
+        if (board[positionTwoPhaseMove.from().row()][positionTwoPhaseMove.from().col()].get() == Square.KING) {
+            return isOnBoard(positionTwoPhaseMove.from()) && isOnBoard(positionTwoPhaseMove.to())
+                    && !isEmpty(positionTwoPhaseMove.from()) && isEmpty(positionTwoPhaseMove.to())
+                    && isKingMove(positionTwoPhaseMove.from(), positionTwoPhaseMove.to());
+        } else if (board[positionTwoPhaseMove.from().row()][positionTwoPhaseMove.from().col()].get() == Square.BISHOP) {
+            return isOnBoard(positionTwoPhaseMove.from()) && isOnBoard(positionTwoPhaseMove.to())
+                    && !isEmpty(positionTwoPhaseMove.from()) && isEmpty(positionTwoPhaseMove.to())
+                    && isBishopMove(positionTwoPhaseMove.from(), positionTwoPhaseMove.to());
+        } else if (board[positionTwoPhaseMove.from().row()][positionTwoPhaseMove.from().col()].get() == Square.ROOK) {
+            return isOnBoard(positionTwoPhaseMove.from()) && isOnBoard(positionTwoPhaseMove.to())
+                    && !isEmpty(positionTwoPhaseMove.from()) && isEmpty(positionTwoPhaseMove.to())
+                    && isRookMove(positionTwoPhaseMove.from(), positionTwoPhaseMove.to());
+        }
+        return false;
     }
 
     @Override
@@ -80,6 +93,18 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
         return dx + dy == 1 || dx * dy == 1;
     }
 
+
+    public static boolean isBishopMove(Position from, Position to) {
+        var dx = Math.abs(to.row() - from.row());
+        var dy = Math.abs(to.col() - from.col());
+        return dx * dy == 1;
+    }
+
+    public static boolean isRookMove(Position from, Position to) {
+        var dx = Math.abs(to.row() - from.row());
+        var dy = Math.abs(to.col() - from.col());
+        return dx + dy == 1;
+    }
 
     @Override
     public Set getLegalMoves() {

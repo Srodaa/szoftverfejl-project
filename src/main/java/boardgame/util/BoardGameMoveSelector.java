@@ -43,7 +43,6 @@ public class BoardGameMoveSelector  {
     }
 
     public void select(Position position){
-        logger.info(phase.get() + " - select metódus");
         switch (phase.get()){
             case SELECT_FROM -> selectFrom(position);
             case SELECT_TO -> selectTo(position);
@@ -70,6 +69,7 @@ public class BoardGameMoveSelector  {
             invalidSelection = false;
         }else {
             invalidSelection = true;
+            logger.info("Invalid move");
             phase.set(Phase.SELECT_FROM);
         }
     }
