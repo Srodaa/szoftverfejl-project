@@ -4,8 +4,8 @@ import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.ReadOnlyBooleanWrapper;
 import puzzle.TwoPhaseMoveState;
+import puzzle.solver.BreadthFirstSearch;
 
 import java.util.Set;
 
@@ -15,7 +15,6 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
     public static final int BOARD_SIZE_Y = 3;
     private ReadOnlyObjectWrapper<Square>[][] board = new ReadOnlyObjectWrapper[BOARD_SIZE_X][BOARD_SIZE_Y];
     private ReadOnlyIntegerWrapper numberOfMoves = new ReadOnlyIntegerWrapper();
-    private ReadOnlyBooleanWrapper solved = new ReadOnlyBooleanWrapper();
 
     public BoardGameModel() {
         for (var i = 0; i < BOARD_SIZE_X; i++) {
@@ -120,7 +119,8 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
     }
 
     @Override
-    public Set getLegalMoves() {
+    public Set<TwoPhaseMove<Position>> getLegalMoves() {
+
         return Set.of();
     }
 
@@ -132,5 +132,10 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
     @Override
     public TwoPhaseMoveState<Position> clone() {
         return null;
+    }
+
+    public static void main(String[] args) {
+        new BreadthFirstSearch<TwoPhaseMove<Position>>()
+                .solveAndPrintSolution(new BoardGameModel());
     }
 }

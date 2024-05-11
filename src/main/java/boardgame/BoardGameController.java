@@ -3,7 +3,6 @@ package boardgame;
 import boardgame.model.BoardGameModel;
 import boardgame.model.Position;
 import boardgame.model.Square;
-import boardgame.util.BoardGameMoveSelector;
 import boardgame.util.EnumImageStorage;
 import boardgame.util.ImageStorage;
 import javafx.application.Platform;
@@ -20,6 +19,8 @@ import javafx.scene.layout.StackPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import puzzle.util.TwoPhaseMoveSelector;
+
 public class BoardGameController {
     @FXML
     public GridPane board;
@@ -33,7 +34,7 @@ public class BoardGameController {
 
     private ImageStorage<Square> imageStorage = new EnumImageStorage<>(Square.class);
 
-    private BoardGameMoveSelector selector = new BoardGameMoveSelector(model);
+    private TwoPhaseMoveSelector<Position> twoPhaseSelector = new TwoPhaseMoveSelector<>(model);
 
 
     @FXML
@@ -75,9 +76,16 @@ public class BoardGameController {
         var row = GridPane.getRowIndex(square);
         var col = GridPane.getColumnIndex(square);
         logger.info("Click on row: " + row + ", col: " + col);
-        selector.select(new Position(row, col));
-        if (selector.isReadyToMove()){
-            selector.makeMove();
+        logger.info(twoPhaseSelector.getPhase().toString());
+        twoPhaseSelector.select(new Position(row, col));
+        if (twoPhaseSelector.isInvalidSelection()){
+            twoPhaseSelector.reset();
+            return;
+        }
+
+        if (twoPhaseSelector.isReadyToMove()){
+            twoPhaseSelector.makeMove();
+            twoPhaseSelector.reset();
             if (model.isSolved()){
                 gameSolvedAlert();
             }
@@ -91,5 +99,6 @@ public class BoardGameController {
         alert.showAndWait();
         Platform.exit();
     }
+
 
 }
