@@ -3,8 +3,6 @@ package boardgame;
 import boardgame.model.BoardGameModel;
 import boardgame.model.Position;
 import boardgame.model.Square;
-import boardgame.util.EnumImageStorage;
-import boardgame.util.ImageStorage;
 import javafx.application.Platform;
 import javafx.beans.binding.ObjectBinding;
 import javafx.fxml.FXML;
@@ -20,6 +18,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import puzzle.util.TwoPhaseMoveSelector;
+import util.javafx.*;
 
 public class BoardGameController {
     @FXML
@@ -61,7 +60,7 @@ public class BoardGameController {
                     }
                     @Override
                     protected Image computeValue() {
-                        return imageStorage.get(model.squareProperty(i, j).get());
+                        return imageStorage.get(model.squareProperty(i, j).get()).orElse(null);
                     }
                 }
         );
