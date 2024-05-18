@@ -11,8 +11,8 @@ import java.util.Set;
 
 public class BoardGameModel implements TwoPhaseMoveState<Position> {
 
-    public static final int BOARD_SIZE_X = 2;
-    public static final int BOARD_SIZE_Y = 3;
+    private static final int BOARD_SIZE_X = 2;
+    private static final int BOARD_SIZE_Y = 3;
     private ReadOnlyObjectWrapper<Square>[][] board = new ReadOnlyObjectWrapper[BOARD_SIZE_X][BOARD_SIZE_Y];
     private ReadOnlyIntegerWrapper numberOfMoves = new ReadOnlyIntegerWrapper();
 
@@ -44,7 +44,7 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
         return board[i][j].getReadOnlyProperty();
     }
 
-    public int getNumberOfMoves() {
+    private int getNumberOfMoves() {
         return numberOfMoves.get();
     }
 
@@ -52,19 +52,19 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
         return numberOfMoves.getReadOnlyProperty();
     }
 
-    public Square getSquare(Position position) {
+    private Square getSquare(Position position) {
         return board[position.row()][position.col()].get();
     }
 
-    public void setSquare(Position position, Square square) {
+    private void setSquare(Position position, Square square) {
         board[position.row()][position.col()].set(square);
     }
 
-    public static boolean isOnBoard(Position p) {
+    private static boolean isOnBoard(Position p) {
         return 0<=p.row() && p.row() < BOARD_SIZE_X && 0<=p.col() && p.col() < BOARD_SIZE_Y;
     }
 
-    public boolean isEmpty(Position p) {
+    private boolean isEmpty(Position p) {
         return getSquare(p) == Square.NONE;
     }
 
@@ -99,20 +99,20 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
         numberOfMoves.set(numberOfMoves.get() + 1);
     }
 
-    public static boolean isKingMove(Position from, Position to) {
+    private static boolean isKingMove(Position from, Position to) {
         var dx = Math.abs(to.row() - from.row());
         var dy = Math.abs(to.col() - from.col());
         return dx + dy == 1 || dx * dy == 1;
     }
 
 
-    public static boolean isBishopMove(Position from, Position to) {
+    private static boolean isBishopMove(Position from, Position to) {
         var dx = Math.abs(to.row() - from.row());
         var dy = Math.abs(to.col() - from.col());
         return dx * dy == 1;
     }
 
-    public static boolean isRookMove(Position from, Position to) {
+    private static boolean isRookMove(Position from, Position to) {
         var dx = Math.abs(to.row() - from.row());
         var dy = Math.abs(to.col() - from.col());
         return dx + dy == 1;
