@@ -4,9 +4,13 @@ import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.geometry.Pos;
 import puzzle.TwoPhaseMoveState;
 import puzzle.solver.BreadthFirstSearch;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public class BoardGameModel implements TwoPhaseMoveState<Position> {
@@ -120,8 +124,24 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
 
     @Override
     public Set<TwoPhaseMove<Position>> getLegalMoves() {
+        Set<TwoPhaseMove<Position>> legalMoves = new HashSet<>();
+        for (int rwfrom = 0; rwfrom < BOARD_SIZE_X; rwfrom++){
+            for (int clfrom = 0; clfrom <BOARD_SIZE_Y; clfrom++){
+                Position fromPos = new Position(rwfrom, clfrom);
+                for (int rwto = 0; rwto < BOARD_SIZE_X; rwto++){
+                    for (int clto = 0; clto < BOARD_SIZE_Y; clto++) {
+                        Position toPos = new Position(rwto, clto);
+                        TwoPhaseMove<Position> move = new TwoPhaseMove<>(fromPos, toPos);
+                        if (isLegalMove(move)){
+                            legalMoves.add(move);
+                        }
+                    }
+                }
+            }
+        }
 
-        return Set.of();
+
+        return legalMoves;
     }
 
     @Override
@@ -131,8 +151,36 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
 
     @Override
     public TwoPhaseMoveState<Position> clone() {
-        return null;
+        BoardGameModel copy;
+        try {
+            copy = (BoardGameModel) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+        copy.board = new ReadOnlyObjectWrapper[BOARD_SIZE_X][BOARD_SIZE_Y];
+        for (int rw = 0; rw < BOARD_SIZE_X; rw++){
+            for (int cl = 0; cl < BOARD_SIZE_Y; cl++){
+                copy.board[rw][cl] = new ReadOnlyObjectWrapper<>(this.board[rw][cl].get());
+            }
+        }
+        return copy;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof BoardGameModel that)) return false;
+        for (int rw = 0; rw < BOARD_SIZE_X; rw++){
+            for (int cl = 0; cl < BOARD_SIZE_Y; cl++){
+                if (!this.getSquare(new Position(rw, cl)).equals(that.getSquare(new Position(rw, cl))))
+                    return false;
+            }
+        }
+        return true;
+
+    }
+
+
 
     public static void main(String[] args) {
         new BreadthFirstSearch<TwoPhaseMove<Position>>()
