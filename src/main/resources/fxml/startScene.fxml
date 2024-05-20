@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boardgame.startController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="136.0" prefWidth="600.0">
+         <children>
+            <Label text="Logic Board Game" textAlignment="CENTER">
+               <font>
+                  <Font size="45.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="120.0" prefWidth="600.0">
+         <children>
+            <Label text="Enter name:">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <TextField fx:id="enteredName" promptText="Name">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets left="155.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="133.0" prefWidth="600.0">
+         <children>
+            <Button fx:id="startGame" mnemonicParsing="false" onAction="#switchToStart" text="Start Game" textAlignment="CENTER">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</VBox>

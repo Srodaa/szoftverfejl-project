@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class BoardGameApplication extends Application {
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/boardGame.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/startScene.fxml"));
         stage.setTitle("JavaFX Logic Board Game");
         stage.setScene(new Scene(root));
         stage.setResizable(false);
