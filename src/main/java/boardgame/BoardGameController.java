@@ -5,8 +5,14 @@ import boardgame.model.Position;
 import boardgame.model.Square;
 import javafx.application.Platform;
 import javafx.beans.binding.ObjectBinding;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,11 +20,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
+import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import puzzle.util.TwoPhaseMoveSelector;
 import util.javafx.*;
+
+import java.io.IOException;
 
 public class BoardGameController {
     @FXML
@@ -26,6 +35,9 @@ public class BoardGameController {
 
     @FXML
     public TextField numberOfMoves;
+
+    @FXML
+    public Button backToMainMenubtn;
 
     private static final Logger logger = LogManager.getLogger(BoardGameController.class);
 
@@ -96,8 +108,14 @@ public class BoardGameController {
         alert.setTitle("Congratulations!");
         alert.setContentText("The game is solved!");
         alert.showAndWait();
-        Platform.exit();
     }
 
-
+    @FXML
+    public void switchToStart(ActionEvent event) throws IOException {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/startScene.fxml"));
+        logger.info("Switched to the start scene.");
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
 }

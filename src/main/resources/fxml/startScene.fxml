@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boardgame.startController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="boardgame.StartController">
    <children>
       <HBox alignment="CENTER" prefHeight="136.0" prefWidth="600.0">
          <children>
@@ -41,10 +41,21 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="133.0" prefWidth="600.0">
          <children>
-            <Button fx:id="startGame" mnemonicParsing="false" onAction="#switchToStart" text="Start Game" textAlignment="CENTER">
+            <Button fx:id="startGame" mnemonicParsing="false" onAction="#switchToBoard" text="Start Game" textAlignment="CENTER">
                <font>
                   <Font size="21.0" />
                </font>
+               <HBox.margin>
+                  <Insets right="30.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="resultsbtn" mnemonicParsing="false" onAction="#switchToResults" text="Results">
+               <font>
+                  <Font size="21.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
             </Button>
          </children>
       </HBox>
