@@ -6,6 +6,7 @@ import boardgame.model.Square;
 import javafx.application.Platform;
 import javafx.beans.binding.ObjectBinding;
 import javafx.event.ActionEvent;
+import javafx.scene.text.Text;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -28,6 +29,7 @@ import puzzle.util.TwoPhaseMoveSelector;
 import util.javafx.*;
 
 import java.io.IOException;
+import java.nio.file.Path;
 
 public class BoardGameController {
     @FXML
@@ -46,7 +48,9 @@ public class BoardGameController {
     private ImageStorage<Square> imageStorage = new EnumImageStorage<>(Square.class);
 
     private TwoPhaseMoveSelector<Position> twoPhaseSelector = new TwoPhaseMoveSelector<>(model);
+    private String name;
 
+    private JsonGameResultManager jsonGameResultManager = new JsonGameResultManager(Path.of("results.json"));
 
     @FXML
     private void initialize() {
@@ -57,6 +61,11 @@ public class BoardGameController {
             }
         }
         numberOfMoves.textProperty().bind(model.numberOfMovesProperty().asString());
+        Platform.runLater(()->
+        {
+            Stage stage = (Stage) numberOfMoves.getScene().getWindow();
+            name = (String) stage.getUserData();
+        });
     }
 
     private StackPane createSquare(int i, int j) {
@@ -99,6 +108,12 @@ public class BoardGameController {
             twoPhaseSelector.reset();
             if (model.isSolved()){
                 gameSolvedAlert();
+                var gameResult = new GameResult(name, model.numberOfMovesProperty().get());
+                try {
+                    jsonGameResultManager.add(gameResult);
+                } catch (IOException e) {
+                    logger.error("Error while saving the game result: {}", e.getMessage());
+                }
             }
         }
     }
@@ -118,4 +133,5 @@ public class BoardGameController {
         stage.setScene(new Scene(root));
         stage.show();
     }
+
 }

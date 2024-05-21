@@ -28,6 +28,7 @@ public class StartController {
         if (!enteredName.getText().isEmpty()) {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/boardGame.fxml"));
+            stage.setUserData(enteredName.getText());
             logger.info("The entered name is " + enteredName.getText());
             logger.info("Switched to the game scene.");
             stage.setScene(new Scene(root));
