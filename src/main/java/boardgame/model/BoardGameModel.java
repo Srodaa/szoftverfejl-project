@@ -4,15 +4,18 @@ import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.geometry.Pos;
 import puzzle.TwoPhaseMoveState;
 import puzzle.solver.BreadthFirstSearch;
 
-import java.util.Arrays;
+
 import java.util.HashSet;
-import java.util.Objects;
+
 import java.util.Set;
 
+/**
+ * A model of a board game.
+ * The game is played on a 2x3 board.
+ */
 public class BoardGameModel implements TwoPhaseMoveState<Position> {
 
     private static final int BOARD_SIZE_X = 2;
@@ -20,6 +23,14 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
     private ReadOnlyObjectWrapper<Square>[][] board = new ReadOnlyObjectWrapper[BOARD_SIZE_X][BOARD_SIZE_Y];
     private ReadOnlyIntegerWrapper numberOfMoves = new ReadOnlyIntegerWrapper();
 
+    /**
+     * Constructs a new {@link BoardGameModel} with the initial state.
+     * The board is initialized with the following configuration:
+     * <pre>
+     *     KING  BISHOP  BISHOP
+     *     ROOK  ROOK  NONE
+     * </pre>
+     */
     public BoardGameModel() {
         for (var i = 0; i < BOARD_SIZE_X; i++) {
             board[i][0] = new ReadOnlyObjectWrapper<Square>(
@@ -44,6 +55,12 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
         numberOfMoves.set(0);
 
     }
+
+    /**
+     * {@return the square at the specified position in the board}
+     * @param i the row index
+     * @param j the column index
+     */
     public ReadOnlyObjectProperty<Square> squareProperty(int i, int j) {
         return board[i][j].getReadOnlyProperty();
     }
@@ -52,6 +69,9 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
         return numberOfMoves.get();
     }
 
+    /**
+     * {@return the number of moves made so far}
+     */
     public ReadOnlyIntegerProperty numberOfMovesProperty() {
         return numberOfMoves.getReadOnlyProperty();
     }
@@ -72,12 +92,19 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
         return getSquare(p) == Square.NONE;
     }
 
+    /**
+     * {@return {@code true} if the puzzle is solved; {@code false} otherwise}
+     */
     @Override
     public boolean isSolved() {
         return board[0][0].get() == Square.BISHOP && board[0][1].get() == Square.BISHOP && board[0][2].get() == Square.NONE
                 && board[1][0].get() == Square.ROOK && board[1][1].get() == Square.ROOK && board[1][2].get() == Square.KING;
     }
 
+    /**
+     * @param positionTwoPhaseMove the move
+     * {@return {@code true} if the move is legal; {@code false} otherwise}
+     */
     @Override
     public boolean isLegalMove(TwoPhaseMove<Position> positionTwoPhaseMove) {
         if (board[positionTwoPhaseMove.from().row()][positionTwoPhaseMove.from().col()].get() == Square.KING) {
@@ -96,6 +123,11 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
         return false;
     }
 
+    /**
+     * Makes the specified move.
+     * The move is assumed to be legal.
+     * @param positionTwoPhaseMove the move
+     */
     @Override
     public void makeMove(TwoPhaseMove<Position> positionTwoPhaseMove) {
         setSquare(positionTwoPhaseMove.to(), getSquare(positionTwoPhaseMove.from()));
@@ -122,6 +154,9 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
         return dx + dy == 1;
     }
 
+    /**
+     * {@return the legal moves}
+     */
     @Override
     public Set<TwoPhaseMove<Position>> getLegalMoves() {
         Set<TwoPhaseMove<Position>> legalMoves = new HashSet<>();
@@ -144,11 +179,18 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
         return legalMoves;
     }
 
+    /**
+     * @param from the position
+     * {@return {@code true} if it is legal to move from the specified position; {@code false} otherwise}
+     */
     @Override
     public boolean isLegalToMoveFrom(Position from) {
         return isOnBoard(from) && !isEmpty(from);
     }
 
+    /**
+     * {@return a string representation of the board}
+     */
     @Override
     public TwoPhaseMoveState<Position> clone() {
         BoardGameModel copy;
@@ -166,6 +208,10 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
         return copy;
     }
 
+    /**
+     * @param o the object to compare
+     * {@return a string representation of the board}
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
