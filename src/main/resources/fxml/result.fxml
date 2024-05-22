@@ -19,10 +19,10 @@
       </Button>
    </bottom>
    <center>
-      <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" fx:id="tableView">
         <columns>
-          <TableColumn prefWidth="300.0" text="Names" />
-          <TableColumn prefWidth="300.0" text="Steps" />
+          <TableColumn fx:id="playerName" prefWidth="300.0" text="Names" />
+          <TableColumn fx:id="steps" prefWidth="300.0" text="Steps" />
         </columns>
          <BorderPane.margin>
             <Insets />
