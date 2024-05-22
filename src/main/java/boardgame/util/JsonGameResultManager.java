@@ -1,7 +1,6 @@
-package boardgame;
+package boardgame.util;
 
 import lombok.NonNull;
-import boardgame.util.JacksonHelper;
 
 import java.io.IOException;
 import java.nio.file.Files;

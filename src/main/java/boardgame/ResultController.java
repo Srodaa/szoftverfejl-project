@@ -1,7 +1,8 @@
 package boardgame;
 
+import boardgame.util.GameResult;
+import boardgame.util.JsonGameResultManager;
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.value.ObservableStringValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

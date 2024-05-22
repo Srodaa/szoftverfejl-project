@@ -1,4 +1,4 @@
-package boardgame;
+package boardgame.util;
 
 import java.io.IOException;
 import java.util.Comparator;
