@@ -7,9 +7,7 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import puzzle.TwoPhaseMoveState;
 import puzzle.solver.BreadthFirstSearch;
 
-
 import java.util.HashSet;
-
 import java.util.Set;
 
 /**
