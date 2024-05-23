@@ -15,14 +15,28 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
+/**
+ * The controller class of the start scene.
+ */
 public class StartController {
+    /**
+     * The button to switch to the game scene.
+     */
     @FXML
     public Button startGame;
+    /**
+     * The text field for the entered name.
+     */
     @FXML
     public TextField enteredName;
 
     private static final Logger logger = LogManager.getLogger(StartController.class);
 
+    /**
+     * Switches to the board game scene.
+     * @param event the action event
+     * @throws IOException if the fxml file cannot be loaded
+     */
     @FXML
     public void switchToBoard(ActionEvent event) throws IOException {
         if (!enteredName.getText().isEmpty()) {
@@ -41,6 +55,11 @@ public class StartController {
         }
     }
 
+    /**
+     * Switches to the results scene.
+     * @param event the action event
+     * @throws IOException if the fxml file cannot be loaded
+     */
     public void switchToResults(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/result.fxml"));

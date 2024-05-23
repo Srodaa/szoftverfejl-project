@@ -22,11 +22,23 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.nio.file.Path;
 
+/**
+ * The controller class of the result scene.
+ */
 public class ResultController {
+    /**
+     * The button to switch back to the start scene.
+     */
     @FXML
     public Button backToStartbtn;
+    /**
+     * The column for the player name.
+     */
     @FXML
     public TableColumn<GameResult, String> playerName;
+    /**
+     * The column for the number of steps.
+     */
     @FXML
     public TableColumn<GameResult, Integer > steps;
 
@@ -44,6 +56,11 @@ public class ResultController {
         tableView.setItems(observableList);
     }
 
+    /**
+     * Switches back to the start scene.
+     * @param event the event that triggered the method
+     * @throws IOException if the fxml file cannot be loaded
+     */
     @FXML
     public void switchToStart(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
