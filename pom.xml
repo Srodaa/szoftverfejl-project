@@ -3,7 +3,7 @@
         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>hu.unideb.inf</groupId>
-    <artifactId>homework-template-project</artifactId>
+    <artifactId>logic-board-game</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
     <description>2x3 sakktáblán játszódó logikai játék két bástya, két futó és egy király segítségével. A játék célja, hogy egy kezdőállapotból eljussunk a végállapotba úgy, hogy a bábukkal csak a sakk szabályainak megfelelően lehet lépni.</description>
