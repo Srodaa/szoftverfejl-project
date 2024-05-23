@@ -1,4 +1,4 @@
-package boardgame;
+package boardgame.gui;
 
 import boardgame.model.BoardGameModel;
 import boardgame.model.Position;

@@ -1,4 +1,4 @@
-package boardgame;
+package boardgame.gui;
 
 import boardgame.util.GameResult;
 import boardgame.util.JsonGameResultManager;

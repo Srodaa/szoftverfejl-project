@@ -1,4 +1,4 @@
-package boardgame;
+package boardgame.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
