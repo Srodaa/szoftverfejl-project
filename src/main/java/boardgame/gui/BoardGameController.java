@@ -36,12 +36,19 @@ import java.nio.file.Path;
  * The controller class of the board game.
  */
 public class BoardGameController {
+    /**
+     * The grid pane of the board.
+     */
     @FXML
     public GridPane board;
-
+    /**
+     * The text field for the number of moves.
+     */
     @FXML
     public TextField numberOfMoves;
-
+    /**
+     * The button to switch back to the main menu.
+     */
     @FXML
     public Button backToMainMenubtn;
 
