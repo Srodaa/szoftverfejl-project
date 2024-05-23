@@ -40,7 +40,7 @@ public class JsonGameResultManager implements GameResultManager {
     }
 
     /**
-     * {@return the list of all game results}
+     * @return the list of all game results
      * @throws IOException if an I/O error occurs
      */
     public List<GameResult> getAll() throws IOException {
