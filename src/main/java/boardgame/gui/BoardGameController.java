@@ -32,6 +32,9 @@ import util.javafx.*;
 import java.io.IOException;
 import java.nio.file.Path;
 
+/**
+ * The controller class of the board game.
+ */
 public class BoardGameController {
     @FXML
     public GridPane board;
@@ -126,6 +129,11 @@ public class BoardGameController {
         alert.showAndWait();
     }
 
+    /**
+     * Switches back to the start scene.
+     * @param event the action event
+     * @throws IOException if an error occurs during the switch
+     */
     @FXML
     public void switchToStart(ActionEvent event) throws IOException {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
