@@ -57,9 +57,9 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
     }
 
     /**
-     * {@return the square at the specified position in the board}
      * @param i the row index
      * @param j the column index
+     * @return the square at the specified position in the board
      */
     public ReadOnlyObjectProperty<Square> squareProperty(int i, int j) {
         return board[i][j].getReadOnlyProperty();
@@ -70,7 +70,7 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
     }
 
     /**
-     * {@return the number of moves made so far}
+     * @return the number of moves made so far
      */
     public ReadOnlyIntegerProperty numberOfMovesProperty() {
         return numberOfMoves.getReadOnlyProperty();
@@ -229,6 +229,9 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
 
 
     public static void main(String[] args) {
+        /**
+         * Solves the puzzle using breadth-first search and prints the solution.
+         */
         new BreadthFirstSearch<TwoPhaseMove<Position>>()
                 .solveAndPrintSolution(new BoardGameModel());
     }
