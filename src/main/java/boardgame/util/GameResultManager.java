@@ -17,15 +17,16 @@ public interface GameResultManager {
     List<GameResult> add(GameResult result) throws IOException;
 
     /**
-     * Returns all game results.
-     * @return the list of all game results
+     * {@return the list of all game results}
+     *
      * @throws IOException if an I/O error occurs
      */
     List<GameResult> getAll() throws IOException;
 
     /**
+     * {@return the list of the best game results}
+     *
      * @param limit the maximum number of results to return
-     * @return the list of the best game results
      * @throws IOException if an I/O error occurs
      */
     default List<GameResult> getBest(int limit) throws IOException {

@@ -55,16 +55,17 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
     }
 
     /**
+     * {@return the square at the specified position in the board}
+     *
      * @param i the row index
      * @param j the column index
-     * @return the square at the specified position in the board
      */
     public ReadOnlyObjectProperty<Square> squareProperty(int i, int j) {
         return board[i][j].getReadOnlyProperty();
     }
 
     /**
-     * @return the number of moves made so far
+     * {@return the number of moves made so far}
      */
     public ReadOnlyIntegerProperty numberOfMovesProperty() {
         return numberOfMoves.getReadOnlyProperty();
@@ -96,8 +97,9 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
     }
 
     /**
-     * @param positionTwoPhaseMove the move
      * {@return {@code true} if the move is legal; {@code false} otherwise}
+     *
+     * @param positionTwoPhaseMove the move
      */
     @Override
     public boolean isLegalMove(TwoPhaseMove<Position> positionTwoPhaseMove) {
@@ -174,8 +176,9 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
     }
 
     /**
-     * @param from the position
      * {@return {@code true} if it is legal to move from the specified position; {@code false} otherwise}
+     *
+     * @param from the position
      */
     @Override
     public boolean isLegalToMoveFrom(Position from) {
@@ -203,8 +206,9 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
     }
 
     /**
-     * @param o the object to compare
      * {@return a string representation of the board}
+     *
+     * @param o the object to compare
      */
     @Override
     public boolean equals(Object o) {

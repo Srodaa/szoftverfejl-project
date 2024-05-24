@@ -26,7 +26,7 @@ public class JsonGameResultManager implements GameResultManager {
     /**
      * Adds a new game result to the JSON file.
      * @param result the game result to add
-     * {@return the list of all game results}
+     * @return the list of all game results
      * @throws IOException if an I/O error occurs
      */
     @Override
@@ -40,7 +40,8 @@ public class JsonGameResultManager implements GameResultManager {
     }
 
     /**
-     * @return the list of all game results
+     * {@return the list of all game results}
+     *
      * @throws IOException if an I/O error occurs
      */
     public List<GameResult> getAll() throws IOException {

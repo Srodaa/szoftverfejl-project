@@ -7,6 +7,9 @@ package boardgame.model;
  */
 public record Position(int row, int col) {
 
+    /**
+     * {@return a string representation of the position}
+     */
     @Override
     public String toString() {
         return String.format("(%d, %d)", row, col);
