@@ -206,9 +206,10 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
     }
 
     /**
-     * {@return a string representation of the board}
+     * Compares this {@code BoardGameModel} object to another object for equality.
      *
      * @param o the object to compare
+     * @return {@code true} if the objects are equal; {@code false} otherwise
      */
     @Override
     public boolean equals(Object o) {
