@@ -63,10 +63,6 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
         return board[i][j].getReadOnlyProperty();
     }
 
-    private int getNumberOfMoves() {
-        return numberOfMoves.get();
-    }
-
     /**
      * @return the number of moves made so far
      */
