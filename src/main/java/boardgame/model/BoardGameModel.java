@@ -103,18 +103,17 @@ public class BoardGameModel implements TwoPhaseMoveState<Position> {
      */
     @Override
     public boolean isLegalMove(TwoPhaseMove<Position> positionTwoPhaseMove) {
-        if (board[positionTwoPhaseMove.from().row()][positionTwoPhaseMove.from().col()].get() == Square.KING) {
-            return isOnBoard(positionTwoPhaseMove.from()) && isOnBoard(positionTwoPhaseMove.to())
-                    && !isEmpty(positionTwoPhaseMove.from()) && isEmpty(positionTwoPhaseMove.to())
-                    && isKingMove(positionTwoPhaseMove.from(), positionTwoPhaseMove.to());
-        } else if (board[positionTwoPhaseMove.from().row()][positionTwoPhaseMove.from().col()].get() == Square.BISHOP) {
-            return isOnBoard(positionTwoPhaseMove.from()) && isOnBoard(positionTwoPhaseMove.to())
-                    && !isEmpty(positionTwoPhaseMove.from()) && isEmpty(positionTwoPhaseMove.to())
-                    && isBishopMove(positionTwoPhaseMove.from(), positionTwoPhaseMove.to());
-        } else if (board[positionTwoPhaseMove.from().row()][positionTwoPhaseMove.from().col()].get() == Square.ROOK) {
-            return isOnBoard(positionTwoPhaseMove.from()) && isOnBoard(positionTwoPhaseMove.to())
-                    && !isEmpty(positionTwoPhaseMove.from()) && isEmpty(positionTwoPhaseMove.to())
-                    && isRookMove(positionTwoPhaseMove.from(), positionTwoPhaseMove.to());
+        var from = positionTwoPhaseMove.from();
+        var to = positionTwoPhaseMove.to();
+        if (board[from.row()][from.col()].get() == Square.KING) {
+            return isOnBoard(from) && isOnBoard(to)
+                    && !isEmpty(from) && isEmpty(to) && isKingMove(from, to);
+        } else if (board[from.row()][from.col()].get() == Square.BISHOP) {
+            return isOnBoard(from) && isOnBoard(to)
+                    && !isEmpty(from) && isEmpty(to) && isBishopMove(from, to);
+        } else if (board[from.row()][from.col()].get() == Square.ROOK) {
+            return isOnBoard(from) && isOnBoard(to)
+                    && !isEmpty(from) && isEmpty(to) && isRookMove(from, to);
         }
         return false;
     }
