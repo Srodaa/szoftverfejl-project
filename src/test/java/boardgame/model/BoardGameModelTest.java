@@ -1,5 +1,6 @@
 package boardgame.model;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import org.junit.jupiter.api.Test;
 import puzzle.TwoPhaseMoveState;
 
@@ -17,7 +18,27 @@ class BoardGameModelTest {
     void isSolved_False() {
         gameModel = new BoardGameModel();
         assertFalse(gameModel.isSolved());
-        gameModel.makeMove(new TwoPhaseMoveState.TwoPhaseMove<>(new Position(1, 1), new Position(1, 2)));
+        gameModel.makeMove(new TwoPhaseMoveState.TwoPhaseMove<>(new Position(0, 2), new Position(1, 1)));
+        assertFalse(gameModel.isSolved());
+        gameModel.makeMove(new TwoPhaseMoveState.TwoPhaseMove<>(new Position(1, 2), new Position(0, 2)));
+        assertFalse(gameModel.isSolved());
+        gameModel.makeMove(new TwoPhaseMoveState.TwoPhaseMove<>(new Position(0, 1), new Position(1, 2)));
+        assertFalse(gameModel.isSolved());
+        gameModel.makeMove(new TwoPhaseMoveState.TwoPhaseMove<>(new Position(0, 0), new Position(0, 1)));
+        assertFalse(gameModel.isSolved());
+        gameModel.makeMove(new TwoPhaseMoveState.TwoPhaseMove<>(new Position(1, 1), new Position(0, 0)));
+        assertFalse(gameModel.isSolved());
+        gameModel.makeMove(new TwoPhaseMoveState.TwoPhaseMove<>(new Position(0, 1), new Position(1, 1)));
+        assertFalse(gameModel.isSolved());
+        gameModel.makeMove(new TwoPhaseMoveState.TwoPhaseMove<>(new Position(0, 2), new Position(0, 1)));
+        assertFalse(gameModel.isSolved());
+        gameModel.makeMove(new TwoPhaseMoveState.TwoPhaseMove<>(new Position(1, 1), new Position(0, 2)));
+        assertFalse(gameModel.isSolved());
+        gameModel.makeMove(new TwoPhaseMoveState.TwoPhaseMove<>(new Position(0, 1), new Position(1, 1)));
+        assertFalse(gameModel.isSolved());
+        gameModel.makeMove(new TwoPhaseMoveState.TwoPhaseMove<>(new Position(1, 2), new Position(0, 1)));
+        assertFalse(gameModel.isSolved());
+        gameModel.makeMove(new TwoPhaseMoveState.TwoPhaseMove<>(new Position(0, 2), new Position(1, 2)));
         assertFalse(gameModel.isSolved());
     }
 
@@ -92,9 +113,6 @@ class BoardGameModelTest {
         assertFalse(gameModel.isLegalMove(new TwoPhaseMoveState.TwoPhaseMove<>(new Position(1, 2), new Position(1, 1))));
     }
 
-    @Test
-    void makeMove() {
-    }
 
     @Test
     void getLegalMoves_True() {
@@ -139,4 +157,37 @@ class BoardGameModelTest {
         gameModel = new BoardGameModel();
         assertEquals(gameModel, gameModel.clone());
     }
+
+    @Test
+    void squareProperty_True(){
+        gameModel = new BoardGameModel();
+        ReadOnlyObjectWrapper<Square>[][] board = new ReadOnlyObjectWrapper[2][3];
+        board[0][1] = new ReadOnlyObjectWrapper<>(Square.BISHOP);
+        assertEquals(board[0][1].getValue(), gameModel.squareProperty(0, 1).getValue());
+    }
+
+    @Test
+    void squareProperty_False(){
+        gameModel = new BoardGameModel();
+        ReadOnlyObjectWrapper<Square>[][] board = new ReadOnlyObjectWrapper[2][3];
+        board[0][1] = new ReadOnlyObjectWrapper<>(Square.ROOK);
+        assertNotEquals(board[0][1].getValue(), gameModel.squareProperty(0, 1).getValue());
+    }
+
+    @Test
+    void numberOfMovesProperty_True(){
+        gameModel = new BoardGameModel();
+        ReadOnlyObjectWrapper<Integer> numberOfMoves = new ReadOnlyObjectWrapper<>(1);
+        gameModel.makeMove(new TwoPhaseMoveState.TwoPhaseMove<>(new Position(1, 1), new Position(1, 2)));
+        assertEquals(numberOfMoves.getValue(), gameModel.numberOfMovesProperty().getValue());
+    }
+
+    @Test
+    void numberOfMovesProperty_False(){
+        gameModel = new BoardGameModel();
+        ReadOnlyObjectWrapper<Integer> numberOfMoves = new ReadOnlyObjectWrapper<>(0);
+        gameModel.makeMove(new TwoPhaseMoveState.TwoPhaseMove<>(new Position(1, 1), new Position(1, 2)));
+        assertNotEquals(numberOfMoves.getValue(), gameModel.numberOfMovesProperty().getValue());
+    }
+
 }
