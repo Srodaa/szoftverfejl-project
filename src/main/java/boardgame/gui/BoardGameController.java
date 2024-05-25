@@ -106,7 +106,7 @@ public class BoardGameController {
         var square = (StackPane) event.getSource();
         var row = GridPane.getRowIndex(square);
         var col = GridPane.getColumnIndex(square);
-        logger.info("Click on row: " + row + ", col: " + col);
+        logger.info("Click on row: {}, col: {}", row, col);
         logger.info(twoPhaseSelector.getPhase().toString());
         twoPhaseSelector.select(new Position(row, col));
         if (twoPhaseSelector.isInvalidSelection()){
